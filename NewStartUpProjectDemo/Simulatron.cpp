@@ -94,10 +94,6 @@ Simulatron::Simulatron(QWidget* parent)
 	connect(&mTimer, &QTimer::timeout, this, &Simulatron::advance);
 
 	connect(mAboutButton, &QPushButton::clicked, this, &Simulatron::about);
-
-	
-
-	
 }
 
 void Simulatron::advance()
@@ -110,12 +106,13 @@ void Simulatron::advance()
 			mGraphicsScene.removeItem(arrow);
 			delete arrow;
 		}
-		QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
-		if (d)
-		{
-			double darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
-			d->setBrush(QColor(0, 0, 0, darkness));
-		}
+		Entity* entity{ dynamic_cast<Entity*>(item) };
+		//QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
+		//if (d)
+		//{
+		//	double darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
+		//	d->setBrush(QColor(0, 0, 0, darkness));
+		//}
 
 	}
 
@@ -160,6 +157,10 @@ void Simulatron::startSimulation()
 				random(sMinSize, sMaxSize),								// taille aléatoire
 				randomColor()));										// couleur aléatoire
 	}
+
+	Entity* raspBush = new Entity(QPointF(20,20), Qt::black);
+	mGraphicsScene.addItem(raspBush);
+	
 
 	// Démarre la simulation
 	mTimer.start(30);

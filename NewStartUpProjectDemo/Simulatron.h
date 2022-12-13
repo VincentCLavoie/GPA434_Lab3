@@ -19,6 +19,8 @@
 
 #include <QGraphicsPixmapItem>
 
+#include "Entity.h"
+
 class QGraphicsView;
 class QControlBar;
 class QParameters;
