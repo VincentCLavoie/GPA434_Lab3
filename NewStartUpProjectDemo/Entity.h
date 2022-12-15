@@ -27,4 +27,5 @@ public:
 private:
 	QPointF pos;
 	bool alive;
+	
 };
