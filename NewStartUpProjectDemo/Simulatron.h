@@ -91,4 +91,5 @@ private:
 	static qreal	const sMaxSpeed;				//    "
 	static qreal	const sMinSize;					//    "
 	static qreal	const sMaxSize;					//    "
+	static int		const sBushes;
 };

@@ -1,17 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(QPointF initialPos, QBrush const & brush, QGraphicsItem* parent) :
+Entity::Entity(QPointF initialPos, QGraphicsItem* parent) :
 	QGraphicsItem(parent)
 	, pos{0,0}
 	, alive(true)
 {
 	setPosition(initialPos);
-
-	mShape << QPointF(0, 0)
-		<< QPointF(-0.25, 0.5)
-		<< QPointF(1, 0)
-		<< QPointF(-0.25, -0.5);
-
 }
 
 Entity::~Entity(){}
@@ -38,12 +32,17 @@ void Entity::setAlive(bool _alive)
 
 QRectF Entity::boundingRect() const
 {
+	QPolygonF mShape;
+	mShape << QPointF(0, 0)
+		<< QPointF(-0.25, 0.5)
+		<< QPointF(1, 0)
+		<< QPointF(-0.25, -0.5);
+
 	return mShape.boundingRect();
 }
 
 void Entity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-	painter->setPen(Qt::NoPen);
-	painter->setBrush(mBrush);
-	painter->drawPolygon(mShape);
+	QPixmap bush("Ressources/bush.png");
+	painter->drawPixmap(pos.x()-50,pos.y()-50, bush.scaled(100,100));
 }

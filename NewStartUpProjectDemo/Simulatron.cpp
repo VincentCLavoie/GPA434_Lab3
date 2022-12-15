@@ -2,6 +2,8 @@
 
 #pragma region Constants
 
+int		const Simulatron::sBushes{ 10 };
+
 QSize	const Simulatron::sSceneSize(1720, 1000);
 QString	const Simulatron::sControlStartText("Démarrer la simulation");
 QString	const Simulatron::sControlStopText("Terminer la simulation");
@@ -96,38 +98,31 @@ Simulatron::Simulatron(QWidget* parent)
 	connect(mAboutButton, &QPushButton::clicked, this, &Simulatron::about);
 }
 
+#pragma region Simulation
+
 void Simulatron::advance()
 {
 	mGraphicsScene.advance();
-
+	
 	for (auto& item : mGraphicsScene.items()) {
+
+		QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
+		if (d) {
+			double darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
+			d->setBrush(QColor(0, 0, 0, darkness));
+		}
+		
+		Entity* bush{ dynamic_cast<Entity*>(item) };
+		
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
 		if (arrow && !arrow->isAlive()) {
 			mGraphicsScene.removeItem(arrow);
 			delete arrow;
 		}
-		Entity* entity{ dynamic_cast<Entity*>(item) };
-		//QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
-		//if (d)
-		//{
-		//	double darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
-		//	d->setBrush(QColor(0, 0, 0, darkness));
-		//}
-
 	}
-
-	//Time of day
-	//mGraphicsScene.removeItem(Darkness);
-
-	//double darkness = 100.0 * sin(simElapsedTime / 200.0) +100.0;
-	//Darkness->setBrush();
-
-
 
 	simElapsedTime++;
 }
-
-#pragma region Simulation
 
 void Simulatron::startSimulation()
 {
@@ -141,26 +136,16 @@ void Simulatron::startSimulation()
 	QPixmap pixmap("Ressources/background.png"); //Test d'image
 	mGraphicsScene.addPixmap(pixmap)->setPos(-mGraphicsScene.width() / 2, -mGraphicsScene.height() / 2);
 
+	//Ajoute les n buissons
+	for (int i{ 0 }; i < sBushes; ++i) {
+		mGraphicsScene.addItem(new Entity(QPointF(random(-80, 80)*10, random(-45,45)*10)));
+	}
+	
 	//$Ajoute un rectangle noir qui change de transparance pour simuler la noirceur
 	Darkness = new QGraphicsRectItem(mGraphicsScene.sceneRect());
 	Darkness->setPen(Qt::NoPen);
 	Darkness->setBrush(QColor(0, 0, 0, 128));
 	mGraphicsScene.addItem(Darkness);
-
-	// Ajoute les n flèches
-	for (int i{ 0 }; i < mParameters->nbrOfItems(); ++i) {
-		mGraphicsScene.addItem(
-			new QArrowItem(random(sMinLifeExpectancy, sMaxLifeExpectancy),			// espérance de vie en seconde
-				randomPoint(-sCenterRadius, sCenterRadius),				// ils sont tous près de l'origine au départ!
-				random(sMinOrientationDegrees, sMaxOrientationDegrees),	// orientation aléatoire
-				random(sMinSpeed, sMaxSpeed),							// vitesse aléatoire
-				random(sMinSize, sMaxSize),								// taille aléatoire
-				randomColor()));										// couleur aléatoire
-	}
-
-	Entity* raspBush = new Entity(QPointF(20,20), Qt::black);
-	mGraphicsScene.addItem(raspBush);
-	
 
 	// Démarre la simulation
 	mTimer.start(30);
