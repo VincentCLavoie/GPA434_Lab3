@@ -58,6 +58,12 @@
     <ClCompile Include="bush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="animal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rabbit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QArrowItem.h">
@@ -67,6 +73,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="animal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rabbit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

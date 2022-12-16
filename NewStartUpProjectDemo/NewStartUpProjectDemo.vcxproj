@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animal.cpp" />
     <ClCompile Include="bush.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="QArrowItem.cpp" />
@@ -95,13 +96,16 @@
     <QtRcc Include="Simulatron.qrc" />
     <QtUic Include="Simulatron.ui" />
     <QtMoc Include="Simulatron.h" />
+    <ClCompile Include="rabbit.cpp" />
     <ClCompile Include="Simulatron.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animal.h" />
     <ClInclude Include="bush.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="QArrowItem.h" />
+    <ClInclude Include="rabbit.h" />
     <QtMoc Include="QParameters.h" />
     <QtMoc Include="QControlBar.h" />
     <QtMoc Include="QColorBox.h" />

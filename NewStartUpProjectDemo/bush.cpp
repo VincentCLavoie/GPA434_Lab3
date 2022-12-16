@@ -1,12 +1,12 @@
 #include "bush.h"
 
 Bush::Bush(QPointF initialPos, Entity* parent) :
-	Entity(initialPos, QPixmap())
+	Entity(initialPos, QPixmap(), 100)
 {
 	setSprite(QPixmap("Ressources/bush1.png"));
 
 	setBerries(3);
-	mSize = 1;
+	setSpriteSize(100);
 }
 
 Bush::~Bush(){}
@@ -14,11 +14,6 @@ Bush::~Bush(){}
 int Bush::getBerries()
 {
 	return mBerries;
-}
-
-int Bush::getSize()
-{
-	return mSize;
 }
 
 void Bush::setBerries(int berries)
@@ -34,9 +29,4 @@ void Bush::setBerries(int berries)
 		else
 			setSprite(QPixmap("Ressources/bush1.png"));
 	}
-}
-
-void Bush::setSize(int size)
-{
-	mSize = size;
 }

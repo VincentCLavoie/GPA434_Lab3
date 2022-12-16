@@ -11,7 +11,7 @@ class Entity : public QGraphicsItem
 {
 public:
 	Entity()= default;
-	Entity(QPointF pos, QPixmap sprite, QGraphicsItem* parent = nullptr);
+	Entity(QPointF pos, QPixmap sprite, int spriteSize, QGraphicsItem* parent = nullptr);
 	~Entity();// override = default;
 	
 	// Fonction abstraite de QGraphicsItem (DOIT être "override") : retourne la taille de l'item
@@ -25,6 +25,8 @@ public:
 	void setAlive(bool alive);
 	bool getAlive();
 	void setSprite(QPixmap pixmap);
+	int getSpriteSize();
+	void setSpriteSize(int size);
 
 protected:
 	QPointF mPos;
@@ -32,4 +34,5 @@ protected:
 
 private:
 	QPixmap mSprite;
+	int mSpriteSize;
 };

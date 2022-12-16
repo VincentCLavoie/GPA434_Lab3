@@ -115,10 +115,6 @@ void Simulatron::advance()
 		
 		Bush* bush{ dynamic_cast<Bush*>(item) };
 		if (bush) {
-			if (bush->getAlive())
-				bush->setAlive(false);
-			else
-				bush->setAlive(true);
 		}
 		
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
