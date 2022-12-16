@@ -1,9 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(QPointF initialPos, QGraphicsItem* parent) :
+Entity::Entity(QPointF initialPos, QPixmap sprites, QGraphicsItem* parent) :
 	QGraphicsItem(parent)
-	, pos{0,0}
-	, alive(true)
+	, mPos{ 0,0 }
+	, mAlive(true)
+	, mSprite{}
 {
 	setPosition(initialPos);
 }
@@ -12,22 +13,26 @@ Entity::~Entity(){}
 
 QPointF Entity::getPosition()
 {
-	return pos;
+	return mPos;
 }
 
-void Entity::setPosition(QPointF _pos)
+void Entity::setPosition(QPointF pos)
 {
-	pos = _pos;
+	mPos = pos;
 }
 
 bool Entity::getAlive()
 {
-	return alive;
+	return mAlive;
 }
 
-void Entity::setAlive(bool _alive)
+void Entity::setAlive(bool alive)
 {
-	alive = _alive;
+	mAlive = alive;
+}
+
+void Entity::setSprite(QPixmap pixmap) {
+	mSprite = pixmap;
 }
 
 QRectF Entity::boundingRect() const
@@ -43,6 +48,7 @@ QRectF Entity::boundingRect() const
 
 void Entity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-	QPixmap bush("Ressources/bush.png");
-	painter->drawPixmap(pos.x()-50,pos.y()-50, bush.scaled(100,100));
+	QPixmap bush("Ressources/bush_1.png");
+
+	painter->drawPixmap(mPos.x()-50,mPos.y()-50, mSprite.scaled(100, 100));
 }

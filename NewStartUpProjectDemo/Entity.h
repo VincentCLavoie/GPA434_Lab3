@@ -6,25 +6,30 @@
 #include <QPainter>
 
 
+
 class Entity : public QGraphicsItem
 {
 public:
-	Entity(QPointF pos, QGraphicsItem* parent = nullptr);
+	Entity()= default;
+	Entity(QPointF pos, QPixmap sprite, QGraphicsItem* parent = nullptr);
 	~Entity();// override = default;
-
+	
 	// Fonction abstraite de QGraphicsItem (DOIT être "override") : retourne la taille de l'item
 	QRectF boundingRect() const override;
 	// Fonction abstraite de QGraphicsItem (DOIT être "override") : dessine la forme
-	//void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
 	//fonctions
-	void setPosition(QPointF _pos);
+	void setPosition(QPointF pos);
 	QPointF getPosition();
-	void setAlive(bool _alive);
+	void setAlive(bool alive);
 	bool getAlive();
+	void setSprite(QPixmap pixmap);
+
+protected:
+	QPointF mPos;
+	bool mAlive;
 
 private:
-	QPointF pos;
-	bool alive;
+	QPixmap mSprite;
 };

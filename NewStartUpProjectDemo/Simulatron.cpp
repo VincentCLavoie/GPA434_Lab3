@@ -4,6 +4,7 @@
 
 int		const Simulatron::sBushes{ 10 };
 
+
 QSize	const Simulatron::sSceneSize(1720, 1000);
 QString	const Simulatron::sControlStartText("Démarrer la simulation");
 QString	const Simulatron::sControlStopText("Terminer la simulation");
@@ -112,7 +113,13 @@ void Simulatron::advance()
 			d->setBrush(QColor(0, 0, 0, darkness));
 		}
 		
-		Entity* bush{ dynamic_cast<Entity*>(item) };
+		Bush* bush{ dynamic_cast<Bush*>(item) };
+		if (bush) {
+			if (bush->getAlive())
+				bush->setAlive(false);
+			else
+				bush->setAlive(true);
+		}
 		
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
 		if (arrow && !arrow->isAlive()) {
@@ -137,8 +144,8 @@ void Simulatron::startSimulation()
 	mGraphicsScene.addPixmap(pixmap)->setPos(-mGraphicsScene.width() / 2, -mGraphicsScene.height() / 2);
 
 	//Ajoute les n buissons
-	for (int i{ 0 }; i < sBushes; ++i) {
-		mGraphicsScene.addItem(new Entity(QPointF(random(-80, 80)*10, random(-45,45)*10)));
+	for (int i{0}; i < sBushes; ++i) {
+		mGraphicsScene.addItem(new Bush(QPointF(random(-80, 80)*10, random(-45,45)*10)));
 	}
 	
 	//$Ajoute un rectangle noir qui change de transparance pour simuler la noirceur

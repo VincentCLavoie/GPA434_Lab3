@@ -20,6 +20,7 @@
 #include <QGraphicsPixmapItem>
 
 #include "Entity.h"
+#include "bush.h"
 
 class QGraphicsView;
 class QControlBar;
@@ -91,5 +92,6 @@ private:
 	static qreal	const sMaxSpeed;				//    "
 	static qreal	const sMinSize;					//    "
 	static qreal	const sMaxSize;					//    "
+	
 	static int		const sBushes;
 };
