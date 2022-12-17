@@ -29,6 +29,7 @@ public:
 	void setSprite(QPixmap pixmap);
 	int getSpriteSize();
 	void setSpriteSize(int size);
+	// virtual void move();//pas implenté
 
 protected:
 	QPointF mPos;

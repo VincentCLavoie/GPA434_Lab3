@@ -4,11 +4,13 @@
 //constructeur
 Animal::Animal(QPointF initialPos, QPixmap sprite, int spriteSize, Entity* parent)
 	: Entity(initialPos, QPixmap(), spriteSize),
-	mAge(-1),
+	mAge(0),
 	mSexe(-1),
 	mEnceinte(false),
 	mFaim(true),
-	mSpeed(0)
+	mSpeed(0),
+	mObjective{},
+	mAsObjective(false)
 {
 }
 
@@ -26,6 +28,11 @@ bool Animal::getFaim() const
 	return mFaim;
 }
 
+bool Animal::getAsObjective() const
+{
+	return mAsObjective;
+}
+
 //Mutateur 
 void Animal::setNbAniDepart(int const& NbAni)
 {
@@ -40,6 +47,11 @@ void Animal::setFaim(bool const& faim)
 void Animal::setAnimalSpeed(int const& speed)
 {
 	mSpeed = speed;
+}
+
+void Animal::setAsObjective(bool const& objective)
+{
+	mAsObjective = objective;
 }
 //Fonctions membres
 
@@ -83,35 +95,74 @@ void Animal::collisionAnimauxNourriture()
 	*/
 }
 
-void Animal::move()
+void Animal :: move()
 {
-	//Find objective
+	int tailleXScreen = 1700;
+	int tailleYScreen = 1000;
+	double nbAleatoireX = (rand()%tailleXScreen ) + 1;
+	double nbAleatoireY = (rand()%tailleYScreen) + 1;
 
-	
-	//int finalpoint = (sqrt(pow(.x()- getPosition().x(), 2) + pow(mobjective.y() - getPosition().y(),2)));
-
+	mObjective = { nbAleatoireX,nbAleatoireY };
 
 	float x = getPosition().x();
 	float y = getPosition().y();
+	double opposeSurAdja = (mObjective.y() - getPosition().y()) / (mObjective.x() - getPosition().x());
 
-	if (x < mObjective.x()) 
+
+
+	double theta = atan(opposeSurAdja);
+
+	if (x < mObjective.x())
 	{
-		x += mSpeed;
+		x += cos(theta) * mSpeed;
 	}
-	else 
+	else
 	{
-		x -= mSpeed;
+		x -= cos(theta) * mSpeed;
 	}
 
 	if (y < mObjective.y())
 	{
-		y += mSpeed;
+		y += sin(theta) * mSpeed;
 	}
-	else 
+	else
 	{
-		y -= mSpeed;
+		y -= sin(theta) * mSpeed;
 	}
 
 	setPosition(QPointF(x, y));
+	
+	
+}
+
+/*
+//QPointF* pos[] peut etre mettre ca en parametre 
+QPointF Animal :: findObjectif(QPointF* pos)
+{
+	//QPointF direction;
+	//direction.setX(mObjective.x() - getPosition().x());
+	//direction.setY(mObjective.y() - getPosition().y());
+	double nbAleatoireX, nbAleatoireY;
+	nbAleatoireX = (rand() % 1500) + 1;
+	nbAleatoireY = (rand() % 1000) + 1;
+	pos->setX(nbAleatoireX);
+	pos->setY(nbAleatoireY);
+
+	return * pos;
+	//mais ca c'est plus aller vers objectif...
+//	pos->setX(mObjective.x() - getPosition().x());
+	//pos->setY(mObjective.y() - getPosition().y());
 
 }
+void Animal::rabbitMove(QPointF* pos)
+{
+	if (mAsObjective == true)
+	{
+		move();
+	}
+	else if (mAsObjective == false)
+	{
+		findObjectif(pos);
+	}
+}
+*/
