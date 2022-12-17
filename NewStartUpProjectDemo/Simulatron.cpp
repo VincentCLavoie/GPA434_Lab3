@@ -119,7 +119,7 @@ void Simulatron::advance()
 
 		Rabbit* rabbit{ dynamic_cast<Rabbit*>(item) };
 		if (rabbit) {
-			bush->getPosition();
+			//bush->getPosition();
 			rabbit->move();
 		}
 		

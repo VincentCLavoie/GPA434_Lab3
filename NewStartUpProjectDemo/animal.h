@@ -19,6 +19,7 @@ public:
 	//Mutateur 
 	void setNbAniDepart(int const& NbAni); //nombre d'animaux au depart de la simulation
 	void setFaim(bool const& faim);
+	void setAnimalSpeed(int const& speed);
 
 	//Fonctions membres
 	void manger(); // si on a ou non deja mangé

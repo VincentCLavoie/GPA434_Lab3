@@ -5,6 +5,8 @@ Rabbit::Rabbit(QPointF initialPos, Animal* parent) :
 {
 	setSprite(QPixmap("Ressources/rabbit.png"));
 	setSpriteSize(50);
+
+	setAnimalSpeed(10);
 }
 
 Rabbit::~Rabbit() {}

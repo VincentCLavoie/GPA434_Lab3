@@ -7,7 +7,8 @@ Animal::Animal(QPointF initialPos, QPixmap sprite, int spriteSize, Entity* paren
 	mAge(-1),
 	mSexe(-1),
 	mEnceinte(false),
-	mFaim(true)
+	mFaim(true),
+	mSpeed(0)
 {
 }
 
@@ -36,6 +37,10 @@ void Animal::setFaim(bool const& faim)
 	mFaim = faim;
 }
 
+void Animal::setAnimalSpeed(int const& speed)
+{
+	mSpeed = speed;
+}
 //Fonctions membres
 
 void Animal::manger()
@@ -83,26 +88,27 @@ void Animal::move()
 	//Find objective
 
 	
-	int finalpoint = (sqrt(pow(.x()- getPosition().x(), 2) + pow(objective.y() - getPosition().y(),2)));
-	
-	
-	mSpeed = 5;
-	mObjective = QPointF(60,60);
+	//int finalpoint = (sqrt(pow(.x()- getPosition().x(), 2) + pow(mobjective.y() - getPosition().y(),2)));
+
 
 	float x = getPosition().x();
 	float y = getPosition().y();
 
-	if (x < mObjective.x()) {
+	if (x < mObjective.x()) 
+	{
 		x += mSpeed;
 	}
-	else {
+	else 
+	{
 		x -= mSpeed;
 	}
 
-	if (y < mObjective.y()) {
+	if (y < mObjective.y())
+	{
 		y += mSpeed;
 	}
-	else {
+	else 
+	{
 		y -= mSpeed;
 	}
 
