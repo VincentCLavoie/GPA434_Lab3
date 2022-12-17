@@ -31,8 +31,19 @@ void Entity::setAlive(bool alive)
 	mAlive = alive;
 }
 
-void Entity::setSprite(QPixmap pixmap) {
+void Entity::setSprite(QPixmap pixmap)
+{
 	mSprite = pixmap;
+}
+
+void Entity::setSpriteSize(int spriteSize)
+{
+	mSpriteSize = spriteSize;
+}
+
+int Entity::getSpriteSize()
+{
+	return mSpriteSize;
 }
 
 QRectF Entity::boundingRect() const
@@ -49,6 +60,4 @@ QRectF Entity::boundingRect() const
 void Entity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
 	painter->drawPixmap(mPos.x() - mSpriteSize / 2, mPos.y() - mSpriteSize / 2, mSprite.scaled(mSpriteSize, mSpriteSize));
-
-	//painter->drawPixmap(mPos.x() - 50 / 2, mPos.y() - 50/2, mSprite.scaled(100, 100));
 }

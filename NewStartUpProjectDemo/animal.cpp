@@ -78,7 +78,34 @@ void Animal::collisionAnimauxNourriture()
 	*/
 }
 
-int Animal::move()
+void Animal::move()
 {
-	return 0; //poisiiton future;
+	//Find objective
+
+	
+	int finalpoint = (sqrt(pow(.x()- getPosition().x(), 2) + pow(objective.y() - getPosition().y(),2)));
+	
+	
+	mSpeed = 5;
+	mObjective = QPointF(60,60);
+
+	float x = getPosition().x();
+	float y = getPosition().y();
+
+	if (x < mObjective.x()) {
+		x += mSpeed;
+	}
+	else {
+		x -= mSpeed;
+	}
+
+	if (y < mObjective.y()) {
+		y += mSpeed;
+	}
+	else {
+		y -= mSpeed;
+	}
+
+	setPosition(QPointF(x, y));
+
 }

@@ -6,7 +6,8 @@ Bush::Bush(QPointF initialPos, Entity* parent) :
 	setSprite(QPixmap("Ressources/bush1.png"));
 
 	setBerries(3);
-	setSpriteSize(100);
+	
+	setSpriteSize(75);
 }
 
 Bush::~Bush(){}

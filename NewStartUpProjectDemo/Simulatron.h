@@ -21,6 +21,8 @@
 
 #include "Entity.h"
 #include "bush.h"
+#include "animal.h"
+#include "rabbit.h"
 
 class QGraphicsView;
 class QControlBar;

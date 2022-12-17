@@ -116,6 +116,12 @@ void Simulatron::advance()
 		Bush* bush{ dynamic_cast<Bush*>(item) };
 		if (bush) {
 		}
+
+		Rabbit* rabbit{ dynamic_cast<Rabbit*>(item) };
+		if (rabbit) {
+			bush->getPosition();
+			rabbit->move();
+		}
 		
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
 		if (arrow && !arrow->isAlive()) {
@@ -142,6 +148,11 @@ void Simulatron::startSimulation()
 	//Ajoute les n buissons
 	for (int i{0}; i < sBushes; ++i) {
 		mGraphicsScene.addItem(new Bush(QPointF(random(-80, 80)*10, random(-45,45)*10)));
+	}
+
+	//Ajoute les n buissons
+	for (int i{ 0 }; i < 20; ++i) {
+		mGraphicsScene.addItem(new Rabbit(QPointF(random(-80, 80) * 10, random(-45, 45) * 10)));
 	}
 	
 	//$Ajoute un rectangle noir qui change de transparance pour simuler la noirceur

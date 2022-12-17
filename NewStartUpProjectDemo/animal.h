@@ -23,7 +23,7 @@ public:
 	//Fonctions membres
 	void manger(); // si on a ou non deja mangé
 	void collisionAnimauxNourriture(); //$ parametres on ne sait pas trop quoi mettre
-	int  move();
+	void move();
 	bool runAway();
 	void reproduction();
 	void ageLimite(); //$vérifier si on retourne qqch
@@ -41,4 +41,6 @@ private:
 	bool mMange; // variable qui dit si l'annimaux decide de manger ou pas
 	bool mFaim;
 	int mNbAni;
+	QPointF mObjective;
+	int mSpeed;
 };
