@@ -4,6 +4,8 @@
 #include <QPixmap>
 #include <QBrush>
 #include <QPainter>
+//avec possibilit/ de l<enlever
+#include "QArrowItem.h"
 
 
 

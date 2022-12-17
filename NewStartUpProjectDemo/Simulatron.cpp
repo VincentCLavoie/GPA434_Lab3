@@ -104,6 +104,7 @@ Simulatron::Simulatron(QWidget* parent)
 void Simulatron::advance()
 {
 	mGraphicsScene.advance();
+	QPointF* validBushPos[20];
 	
 	for (auto& item : mGraphicsScene.items()) {
 
@@ -122,7 +123,7 @@ void Simulatron::advance()
 			//bush->getPosition();
 			rabbit->move();
 		}
-		
+	
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
 		if (arrow && !arrow->isAlive()) {
 			mGraphicsScene.removeItem(arrow);
