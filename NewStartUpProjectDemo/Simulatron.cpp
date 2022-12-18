@@ -104,8 +104,21 @@ Simulatron::Simulatron(QWidget* parent)
 void Simulatron::advance()
 {
 	mGraphicsScene.advance();
-	QPointF* validBushPos[20];
+	QPointF validBushPos[100];
+
+	//Get entity locations
+	int i = 0;
+	for (auto& item : mGraphicsScene.items()) {
+		Bush* bush{ dynamic_cast<Bush*>(item) };
+		if (bush) {
+			if (bush->getBerries() > 0) {
+				validBushPos[i] = (bush->getPosition());
+				i++;
+			}
+		}
+	}
 	
+	//Process Entities
 	for (auto& item : mGraphicsScene.items()) {
 
 		QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
@@ -115,13 +128,15 @@ void Simulatron::advance()
 		}
 		
 		Bush* bush{ dynamic_cast<Bush*>(item) };
-		if (bush) {
-		}
 
 		Rabbit* rabbit{ dynamic_cast<Rabbit*>(item) };
 		if (rabbit) {
-			//bush->getPosition();
-			rabbit->move();
+			if (rabbit->getHasObjective()) {
+				rabbit->move();
+			}
+			else {
+				rabbit->findObjective(validBushPos);
+			}
 		}
 	
 		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
