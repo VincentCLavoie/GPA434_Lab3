@@ -63,9 +63,7 @@ private slots:
 	void pauseSimulation();
 	void resumeSimulation();
 	void stopSimulation();
-
 	void advance();
-
 	void about();
 
 private:
@@ -83,15 +81,4 @@ private:
 	static QColor	const sControlPauseColor;		//    "
 	static QColor	const sControlStoppedColor;		//    "
 	static QColor	const sControlNotReadyColor;	//    "
-	static qreal	const sMinLifeExpectancy;		// Constantes liées à la création aléatoire des flèches
-	static qreal	const sMaxLifeExpectancy;		//	  "
-	static qreal	const sCenterRadius;			//    "
-	static qreal	const sMinOrientationDegrees;	//    "
-	static qreal	const sMaxOrientationDegrees;	//    "
-	static qreal	const sMinSpeed;				//    "
-	static qreal	const sMaxSpeed;				//    "
-	static qreal	const sMinSize;					//    "
-	static qreal	const sMaxSize;					//    "
-	
-	static int		const sBushes;
 };

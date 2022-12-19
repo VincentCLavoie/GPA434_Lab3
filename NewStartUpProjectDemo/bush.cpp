@@ -1,7 +1,7 @@
 #include "bush.h"
 
 Bush::Bush(QPointF initialPos, Entity* parent) :
-	Entity(initialPos, QPixmap(), 100)
+	Entity(initialPos)
 {
 	setSprite(QPixmap("Ressources/bush1.png"));
 

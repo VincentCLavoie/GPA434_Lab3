@@ -1,10 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(QPointF initialPos, QPixmap sprites, int spriteSize, QGraphicsItem* parent) :
+Entity::Entity(QPointF initialPos, QGraphicsItem* parent) :
 	QGraphicsItem(parent)
 	, mPos{ 0,0 }
 	, mAlive(true)
-	, mSprite{}
+	, mSprite{ QPixmap() }
 {
 	setPosition(initialPos);
 }

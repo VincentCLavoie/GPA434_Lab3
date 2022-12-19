@@ -3,7 +3,7 @@
 
 //constructeur
 Animal::Animal(QPointF initialPos, QPixmap sprite, int spriteSize, Entity* parent)
-	: Entity(initialPos, QPixmap(), spriteSize),
+	: Entity(initialPos),
 	mAge(0),
 	mSexe(-1),
 	mEnceinte(false),
