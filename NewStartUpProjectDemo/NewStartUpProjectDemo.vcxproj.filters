@@ -40,9 +40,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QArrowItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QColorBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -64,11 +61,14 @@
     <ClCompile Include="rabbit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mushroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QArrowItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -79,6 +79,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rabbit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mushroom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

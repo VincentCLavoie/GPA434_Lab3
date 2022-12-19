@@ -13,7 +13,6 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QHBoxLayout>
-#include "QArrowItem.h"
 
 #include <math.h>
 
@@ -23,6 +22,8 @@
 #include "bush.h"
 #include "animal.h"
 #include "rabbit.h"
+#include "fox.h"
+#include "mushroom.h"
 
 class QGraphicsView;
 class QControlBar;
@@ -54,9 +55,6 @@ private:
 	QColor randomColor();
 	QPointF randomPoint(qreal min, qreal max);
 
-
-	//$
-	QGraphicsRectItem* Darkness;
 	double simElapsedTime;
 
 private slots:

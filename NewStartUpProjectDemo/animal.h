@@ -14,12 +14,12 @@ public:
 
 	//Accesseur 
 	int getNbAniDepart() const;
-	bool getFaim() const;
+	int getHunger() const;
 	bool getHasObjective() const;
 
 	//Mutateur 
 	void setNbAniDepart(int const& NbAni); //nombre d'animaux au depart de la simulation
-	void setFaim(bool const& faim);
+	void setHunger(int const& hungerValue);
 	void setAnimalSpeed(int const& speed);
 	void setHasObjective(bool const& objective);
 
@@ -38,20 +38,13 @@ private:
 	double distanceBetween2Points(QPointF pos1, QPointF pos2);
 
 protected:
-
 	int mSexe;
 	bool mEnceinte;
 
-
 private:
-
 	int mAge;
-	bool mMange; // variable qui dit si l'annimaux decide de manger ou pas
-	bool mFaim;
-	int mNbAni;
+	int mHunger;
 	QPointF mObjective;
 	int mSpeed;
 	bool mHasObjective;
-
-	
 };

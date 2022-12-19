@@ -2,9 +2,6 @@
 
 #pragma region Constants
 
-int		const Simulatron::sBushes{ 10 };
-
-
 QSize	const Simulatron::sSceneSize(1720, 1000);
 QString	const Simulatron::sControlStartText("Démarrer la simulation");
 QString	const Simulatron::sControlStopText("Terminer la simulation");
@@ -16,7 +13,7 @@ QColor	const Simulatron::sControlPauseColor(255, 196, 0);
 QColor	const Simulatron::sControlStoppedColor(255, 0, 0);
 QColor	const Simulatron::sControlNotReadyColor(230, 230, 230);
 
-size_t	const Simulatron::sMaxNbrOfItems{ 1000 };
+size_t	const Simulatron::sMaxNbrOfItems{ 100 };
 qreal	const Simulatron::sMinLifeExpectancy{ 1.0 };
 qreal	const Simulatron::sMaxLifeExpectancy{ 10.0 };
 qreal	const Simulatron::sCenterRadius{ 25 };
@@ -104,10 +101,10 @@ Simulatron::Simulatron(QWidget* parent)
 void Simulatron::advance()
 {
 	mGraphicsScene.advance();
-	QPointF validBushPos[100];
+	QPointF validBushPos[100], validRabbitPos[100];
 
 	//Get entity locations
-	int i = 0;
+	int i = 0,j = 0;
 	for (auto& item : mGraphicsScene.items()) {
 		Bush* bush{ dynamic_cast<Bush*>(item) };
 		if (bush) {
@@ -116,6 +113,11 @@ void Simulatron::advance()
 				i++;
 			}
 		}
+		Rabbit* rabbit{ dynamic_cast<Rabbit*>(item) };
+		if (rabbit) {
+			validRabbitPos[j] = (rabbit->getPosition());
+			j++;
+		}
 	}
 	
 	//Process Entities
@@ -123,7 +125,7 @@ void Simulatron::advance()
 
 		QGraphicsRectItem* d{ dynamic_cast<QGraphicsRectItem*>(item) };
 		if (d) {
-			double darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
+			int darkness = 100.0 * sin(simElapsedTime / 200.0) + 100.0;
 			d->setBrush(QColor(0, 0, 0, darkness));
 		}
 		
@@ -135,14 +137,73 @@ void Simulatron::advance()
 				rabbit->move();
 			}
 			else {
-				rabbit->findObjective(validBushPos);
+				if (rabbit->getHunger() < 100) {
+					//Check for collisions
+					QList<QGraphicsItem*> objs = rabbit->collidingItems();
+
+					for each (QGraphicsItem * obj in objs)
+					{
+						Bush* yummyBush{ dynamic_cast<Bush*>(obj) };
+						if (yummyBush) {
+							if (yummyBush->getBerries() >= 1) {
+								yummyBush->setBerries(yummyBush->getBerries() - 1);
+								rabbit->setHunger(1000);
+								rabbit->setHasObjective(false);
+							}
+						}
+					}
+					
+					rabbit->findObjective(validBushPos);
+				}
+			}
+			rabbit->setHunger(rabbit->getHunger() - 1);
+			if (rabbit->getHunger() <= 0) {
+				rabbit->setAlive(false);
 			}
 		}
-	
-		QArrowItem* arrow{ dynamic_cast<QArrowItem*>(item) };
-		if (arrow && !arrow->isAlive()) {
-			mGraphicsScene.removeItem(arrow);
-			delete arrow;
+
+		
+		Fox* fox{ dynamic_cast<Fox*>(item) };
+		if (fox) {
+			if (fox->getHasObjective()) {
+				fox->move();
+			}
+			else {
+				if (fox->getHunger() < 100) {
+					//Check for collisions
+					QList<QGraphicsItem*> objs = fox->collidingItems();
+
+					for each (QGraphicsItem * obj in objs)
+					{
+						Rabbit* yummyRabbit{ dynamic_cast<Rabbit*>(obj) };
+						if (yummyRabbit) {
+							fox->setHunger(1000);
+							fox->setHasObjective(false);
+							yummyRabbit->setAlive(false);
+						}
+					}
+
+					fox->findObjective(validRabbitPos);
+				}
+			}
+			fox->setHunger(fox->getHunger() - 1);
+			if (fox->getHunger() <= 0) {
+				fox->setAlive(false);
+			}
+		}
+	}
+	for (auto& item : mGraphicsScene.items()) {
+		Entity* entity{ dynamic_cast<Entity*>(item) };
+		if (entity) {
+			if (!entity->getAlive()) {
+				mGraphicsScene.removeItem(entity);
+				
+
+				//Create Mushroom
+				mGraphicsScene.addItem(new Mushroom(entity->getPosition()));
+
+				delete entity;
+			}
 		}
 	}
 
@@ -158,21 +219,26 @@ void Simulatron::startSimulation()
 	simElapsedTime = 0;
 
 	// Dessine le fond d'écran de la scène
-	QPixmap pixmap("Ressources/background.png"); //Test d'image
+	QPixmap pixmap("Ressources/background.png");
 	mGraphicsScene.addPixmap(pixmap)->setPos(-mGraphicsScene.width() / 2, -mGraphicsScene.height() / 2);
 
 	//Ajoute les n buissons
-	for (int i{0}; i < sBushes; ++i) {
+	for (int i{0}; i < mParameters->nbrOfBushes(); ++i) {
 		mGraphicsScene.addItem(new Bush(QPointF(random(-80, 80)*10, random(-45,45)*10)));
 	}
 
-	//Ajoute les n buissons
-	for (int i{ 0 }; i < 20; ++i) {
+	//Ajoute les n lapins
+	for (int i{ 0 }; i < mParameters->nbrOfRabbits(); ++i) {
 		mGraphicsScene.addItem(new Rabbit(QPointF(random(-80, 80) * 10, random(-45, 45) * 10)));
+	}
+
+	//Ajoute les n renards
+	for (int i{ 0 }; i < mParameters->nbrOfFoxes(); ++i) {
+		mGraphicsScene.addItem(new Fox(QPointF(random(-80, 80) * 10, random(-45, 45) * 10)));
 	}
 	
 	//$Ajoute un rectangle noir qui change de transparance pour simuler la noirceur
-	Darkness = new QGraphicsRectItem(mGraphicsScene.sceneRect());
+	QGraphicsRectItem* Darkness = new QGraphicsRectItem(mGraphicsScene.sceneRect());
 	Darkness->setPen(Qt::NoPen);
 	Darkness->setBrush(QColor(0, 0, 0, 128));
 	mGraphicsScene.addItem(Darkness);

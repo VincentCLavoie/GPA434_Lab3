@@ -4,10 +4,6 @@
 #include <QPixmap>
 #include <QBrush>
 #include <QPainter>
-//avec possibilit/ de l<enlever
-#include "QArrowItem.h"
-
-
 
 class Entity : public QGraphicsItem
 {
@@ -29,7 +25,6 @@ public:
 	void setSprite(QPixmap pixmap);
 	int getSpriteSize();
 	void setSpriteSize(int size);
-	// virtual void move();//pas implenté
 
 protected:
 	QPointF mPos;

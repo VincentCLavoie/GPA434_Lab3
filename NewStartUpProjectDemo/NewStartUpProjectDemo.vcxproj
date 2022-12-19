@@ -89,7 +89,8 @@
     <ClCompile Include="animal.cpp" />
     <ClCompile Include="bush.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="QArrowItem.cpp" />
+    <ClCompile Include="fox.cpp" />
+    <ClCompile Include="mushroom.cpp" />
     <ClCompile Include="QColorBox.cpp" />
     <ClCompile Include="QControlBar.cpp" />
     <ClCompile Include="QParameters.cpp" />
@@ -104,7 +105,8 @@
     <ClInclude Include="animal.h" />
     <ClInclude Include="bush.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="QArrowItem.h" />
+    <ClInclude Include="fox.h" />
+    <ClInclude Include="mushroom.h" />
     <ClInclude Include="rabbit.h" />
     <QtMoc Include="QParameters.h" />
     <QtMoc Include="QControlBar.h" />

@@ -14,10 +14,14 @@ class QParameters : public QWidget
 public:
 	QParameters(size_t maxItems = 250, QWidget * parent = nullptr);
 
-	size_t nbrOfItems() const;
+	size_t nbrOfBushes() const;
+	size_t nbrOfRabbits() const;
+	size_t nbrOfFoxes() const;
 
 protected:
-	QSpinBox * mNbrOfItems;
+	QSpinBox * mNbrOfBushes;
+	QSpinBox * mNbrOfRabbits;
+	QSpinBox* mNbrOfFoxes;
 };
 
 

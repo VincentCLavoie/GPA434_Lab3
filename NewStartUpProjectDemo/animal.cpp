@@ -7,7 +7,7 @@ Animal::Animal(QPointF initialPos, QPixmap sprite, int spriteSize, Entity* paren
 	mAge(0),
 	mSexe(-1),
 	mEnceinte(false),
-	mFaim(true),
+	mHunger(0),
 	mSpeed(0),
 	mObjective{},
 	mHasObjective(false)
@@ -18,14 +18,9 @@ Animal::Animal(QPointF initialPos, QPixmap sprite, int spriteSize, Entity* paren
 Animal::~Animal(){}
 
 //Accesseur 
-int Animal::getNbAniDepart() const
+int Animal::getHunger() const
 {
-	return mNbAni;
-}
-
-bool Animal::getFaim() const
-{
-	return mFaim;
+	return mHunger;
 }
 
 bool Animal::getHasObjective() const
@@ -34,14 +29,9 @@ bool Animal::getHasObjective() const
 }
 
 //Mutateur 
-void Animal::setNbAniDepart(int const& NbAni)
+void Animal::setHunger(int const& faim)
 {
-	mNbAni = NbAni;
-}
-
-void Animal::setFaim(bool const& faim)
-{
-	mFaim = faim;
+	mHunger = faim;
 }
 
 void Animal::setAnimalSpeed(int const& speed)
@@ -57,18 +47,7 @@ void Animal::setHasObjective(bool const& objective)
 
 void Animal::manger()
 {
-	//if (/*mettre une condition*/)// proche ou non de la bouffe
-	//{
-	if (getFaim() == false) //$ faudrait ajouter la condition s'il veut se reproduire
-	{
-		//Ne pas manger
-	}
-	else if (getFaim() == true)
-	{
-		//enlever une berrie ou un mushroom ou un animaux
-
-	}
-	//}
+	
 }
 
 //$cette fonction devra aller dans entity
@@ -103,18 +82,24 @@ void Animal::move()
 	QPointF posActuel = { x,y };
 	QPointF vecteurDirecteur = (mObjective - posActuel);
 	double distance = sqrt(pow(mObjective.x() - x, 2) + pow(mObjective.y() - y, 2));
+
+	//Checks if has arrived to objective
+	if (distance < mSpeed) {
+		mHasObjective = false;
+		return;
+	}
+
 	QPointF vecUnitaire = vecteurDirecteur / abs(distance);
 
 	double opposeSurAdja = (mObjective.y() - y) / (mObjective.x() - x);
-	double theta = atan(opposeSurAdja);
+	double theta = atan(abs(opposeSurAdja)); // si dans cadran un
 
-	if (posActuel != mObjective)
-	{
+
+	if (posActuel != mObjective){
 		posActuel += vecUnitaire * theta;
 		setPosition(QPointF(posActuel.x(), posActuel.y()));
 	}
 }
-
 
 //QPointF* pos[] peut etre mettre ca en parametre 
 void Animal :: findObjective(QPointF pos[100])

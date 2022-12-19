@@ -7,6 +7,7 @@ Rabbit::Rabbit(QPointF initialPos, Animal* parent) :
 	setSpriteSize(50);
 
 	setAnimalSpeed(50);
+	setHunger(200);
 }
 
 Rabbit::~Rabbit() {}

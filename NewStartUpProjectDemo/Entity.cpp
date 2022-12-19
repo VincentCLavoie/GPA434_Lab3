@@ -49,10 +49,10 @@ int Entity::getSpriteSize()
 QRectF Entity::boundingRect() const
 {
 	QPolygonF mShape;
-	mShape << QPointF(0, 0)
-		<< QPointF(-0.25, 0.5)
-		<< QPointF(1, 0)
-		<< QPointF(-0.25, -0.5);
+	mShape << QPointF(-1, -1)
+		<< QPointF(-1, 1)
+		<< QPointF(1, 1)
+		<< QPointF(1, -1);
 
 	return mShape.boundingRect();
 }
